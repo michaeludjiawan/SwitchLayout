@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.michaeludjiawan.switchlayout.SwitchLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/switch_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_loading_full_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loading Full Screen" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_loading_full_screen_keep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loading Full Screen Keep Existing" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_loading_in_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loading In Frame" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_loading_in_frame_keep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loading In Frame Keep Existing" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go To Error Layout" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go To Empty Layout" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go To Custom Layout" />
+
+    </LinearLayout>
+
+</com.michaeludjiawan.switchlayout.SwitchLayout>

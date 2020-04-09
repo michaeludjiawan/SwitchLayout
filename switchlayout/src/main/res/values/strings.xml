@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SwitchLayout</string>
+    <string name="info_default_message">This is default info.</string>
+</resources>
