@@ -4,7 +4,7 @@ A layout which allow you to handle different states in a flexible way
 
 # Download
 
-```implementation 'com.michaeludjiawan.switchlayout:switch-layout:0.1.0'```
+```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.1.0'```
 
 # Usage
 
