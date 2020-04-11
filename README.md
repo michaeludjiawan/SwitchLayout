@@ -47,6 +47,9 @@ switch_layout.switch {
     }
   }
 }
+
+// Switch back to content state
+switch_layout.clear()
 ```
 
 Implementation of common states
