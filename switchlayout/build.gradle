@@ -8,11 +8,11 @@ ext {
     libraryVersion = '0.1.0'
 
     bintrayRepo = 'SwitchLayout'
-    bintrayName = 'switch-layout'
+    bintrayName = 'switchlayout'
 
     publishedGroupId = 'com.michaeludjiawan.switchlayout'
     libraryName = 'switchlayout'
-    artifact = 'switch-layout'
+    artifact = 'switchlayout'
 
     libraryDescription = ''
 
