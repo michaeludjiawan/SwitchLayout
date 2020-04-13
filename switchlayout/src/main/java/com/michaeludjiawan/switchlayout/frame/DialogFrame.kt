@@ -20,9 +20,11 @@ class DialogFrame(
             dialog = DefaultDialogFragment(itemView)
         }
 
-        fragmentManager.beginTransaction()
-            .add(getContainerId(), dialog!!)
-            .commit()
+        if (!dialog!!.isAdded) {
+            fragmentManager.beginTransaction()
+                .add(getContainerId(), dialog!!)
+                .commit()
+        }
     }
 
     override fun unload(itemView: ViewGroup) {

@@ -6,10 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.michaeludjiawan.switchlayout.frame.FrameType
 import com.michaeludjiawan.switchlayout.layout.infoLayout
-import com.michaeludjiawan.switchlayout.switcher.infoState
-import com.michaeludjiawan.switchlayout.switcher.loadingFullScreenState
-import com.michaeludjiawan.switchlayout.switcher.loadingState
-import com.michaeludjiawan.switchlayout.switcher.state
+import com.michaeludjiawan.switchlayout.switcher.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_loading_full_screen_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch {
+                switch_main.switch(LoadType.ADD) {
                     loadingFullScreenState {
                         existingStateVisibility = View.VISIBLE
                     }
@@ -46,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_loading_in_frame_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch {
+                switch_main.switch(LoadType.ADD) {
                     loadingState {
                         existingStateVisibility = View.VISIBLE
                     }
