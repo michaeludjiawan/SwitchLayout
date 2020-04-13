@@ -20,17 +20,19 @@ class DialogFrame(
             dialog = DefaultDialogFragment(itemView)
         }
 
-        if (!dialog!!.isAdded) {
-            fragmentManager.beginTransaction()
-                .add(getContainerId(), dialog!!)
-                .commit()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        if (dialog!!.isAdded) {
+            fragmentTransaction.show(dialog!!)
+        } else {
+            fragmentTransaction.add(getContainerId(), dialog!!)
         }
+
+        fragmentTransaction.commit()
     }
 
     override fun unload(itemView: ViewGroup) {
-        fragmentManager.beginTransaction()
-            .remove(dialog!!)
-            .commit()
+        dialog?.dismiss()
     }
 
     private fun getContainerId(): Int = when (frameType) {
