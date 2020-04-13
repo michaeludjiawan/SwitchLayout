@@ -7,6 +7,4 @@ interface Switcher {
     fun getId(): Int
     fun getContext(): Context
     fun getChildren(): Sequence<View>
-    fun updateContentVisibility(contentVisibility: Int)
-    fun resetContentVisibility()
 }

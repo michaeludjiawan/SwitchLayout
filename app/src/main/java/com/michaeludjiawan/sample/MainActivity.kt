@@ -2,7 +2,6 @@ package com.michaeludjiawan.sample
 
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.michaeludjiawan.switchlayout.frame.FrameType
 import com.michaeludjiawan.switchlayout.layout.infoLayout
@@ -26,9 +25,7 @@ class MainActivity : AppCompatActivity() {
         btn_loading_full_screen_keep.setOnClickListener {
             loadWithResetDelayed {
                 switch_main.switch(LoadType.ADD) {
-                    loadingFullScreenState {
-                        existingStateVisibility = View.VISIBLE
-                    }
+                    loadingFullScreenState()
                 }
             }
         }
@@ -44,9 +41,7 @@ class MainActivity : AppCompatActivity() {
         btn_loading_in_frame_keep.setOnClickListener {
             loadWithResetDelayed {
                 switch_main.switch(LoadType.ADD) {
-                    loadingState {
-                        existingStateVisibility = View.VISIBLE
-                    }
+                    loadingState()
                 }
             }
         }
@@ -89,7 +84,6 @@ class MainActivity : AppCompatActivity() {
                     frame {
                         frameType = FrameType.WINDOW
                     }
-                    existingStateVisibility = View.GONE
                 }
             }
         }
