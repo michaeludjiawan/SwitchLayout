@@ -20,8 +20,6 @@ class SwitchLayout @JvmOverloads constructor(
     private val mutableState = MutableLiveData<State?>()
     val stateLiveData: LiveData<State?> = mutableState
 
-    private val initialVisibility = HashMap<View, Int>()
-
     private lateinit var contentState: State
 
     override fun onFinishInflate() {
@@ -29,7 +27,6 @@ class SwitchLayout @JvmOverloads constructor(
         val contentLayout = getChildAt(0) as ViewGroup
         contentState = state {
             layout = contentLayout
-            existingStateVisibility = View.VISIBLE
         }
         switch { contentState }
     }
@@ -51,20 +48,4 @@ class SwitchLayout @JvmOverloads constructor(
 
     override fun getChildren(): Sequence<View> = children
 
-    override fun updateContentVisibility(contentVisibility: Int) {
-        children.forEach { child ->
-            initialVisibility[child] = child.visibility
-            child.visibility = contentVisibility
-        }
-    }
-
-    override fun resetContentVisibility() {
-        children.forEach { child ->
-            initialVisibility[child]?.let { visibility ->
-                child.visibility = visibility
-            }
-        }
-
-        initialVisibility.clear()
-    }
 }

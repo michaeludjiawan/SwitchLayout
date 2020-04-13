@@ -1,6 +1,5 @@
 package com.michaeludjiawan.switchlayout.switcher
 
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.michaeludjiawan.switchlayout.frame.DialogFrame
@@ -9,20 +8,16 @@ import com.michaeludjiawan.switchlayout.frame.Frame
 const val STATE_LOADING = "LOADING"
 
 class State(
-    private val parent: Switcher,
     private val key: String,
     private val frame: Frame,
-    private val layout: ViewGroup,
-    private val existingStateVisibility: Int
+    private val layout: ViewGroup
 ) {
 
     fun load() {
-        parent.updateContentVisibility(existingStateVisibility)
         frame.load(layout)
     }
 
     fun finish() {
-        parent.resetContentVisibility()
         frame.unload(layout)
     }
 
@@ -33,7 +28,6 @@ class State(
 
         var key: String = ""
         var layout: ViewGroup = FrameLayout(parent.getContext())
-        var existingStateVisibility: Int = View.GONE
 
         fun frame(init: DialogFrame.Builder.() -> Unit) {
             val builder = DialogFrame.Builder(parent)
@@ -43,11 +37,9 @@ class State(
 
         fun build(): State =
             State(
-                parent,
                 key,
                 frame,
-                layout,
-                existingStateVisibility
+                layout
             )
     }
 }
