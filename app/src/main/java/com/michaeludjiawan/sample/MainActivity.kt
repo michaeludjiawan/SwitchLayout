@@ -81,9 +81,7 @@ class MainActivity : AppCompatActivity() {
                     layout = CustomLayout(this@MainActivity).apply {
                         onBtnClickListener = { switch_main.clear() }
                     }
-                    frame {
-                        frameType = FrameType.WINDOW
-                    }
+                    frameType = FrameType.WINDOW
                 }
             }
         }

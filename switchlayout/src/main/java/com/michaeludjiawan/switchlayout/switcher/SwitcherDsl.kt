@@ -14,9 +14,7 @@ fun Switcher.loadingState(builderAction: (State.Builder.() -> Unit) = {}): State
 }
 
 fun Switcher.loadingFullScreenState(builderAction: (State.Builder.() -> Unit) = {}) = loadingState {
-    frame {
-        frameType = FrameType.WINDOW
-    }
+    frameType = FrameType.WINDOW
     builderAction()
 }
 

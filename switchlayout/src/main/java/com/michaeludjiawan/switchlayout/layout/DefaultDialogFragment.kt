@@ -36,6 +36,7 @@ class DefaultDialogFragment(private val loaderView: View) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (loaderView.parent as? ViewGroup)?.removeView(loaderView)
+        loaderView.visibility = View.VISIBLE
         fl_dialog_over_frame.addView(loaderView)
     }
 }

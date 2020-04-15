@@ -32,11 +32,21 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun switch(loadType: LoadType = LoadType.REPLACE, action: Switcher.() -> State) {
+        val newState = action()
+
+        if (newState.layout.parent == null) {
+            newState.layout.visibility = View.GONE
+            addView(newState.layout)
+        }
+
+        check(newState.layout.parent == this) {
+            "New layout not attached to current layout."
+        }
+
         if (loadType == LoadType.REPLACE) {
             mutableState.value?.finish()
         }
 
-        val newState = action()
         newState.load()
 
         mutableState.value = newState
