@@ -1,13 +1,12 @@
 package com.michaeludjiawan.switchlayout.switcher
 
+import android.content.Context
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.michaeludjiawan.switchlayout.frame.BasicFrame
 import com.michaeludjiawan.switchlayout.frame.DialogFrame
 import com.michaeludjiawan.switchlayout.frame.Frame
 import com.michaeludjiawan.switchlayout.frame.FrameType
-
-const val STATE_LOADING = "LOADING"
 
 class State(
     val key: String,
@@ -23,15 +22,15 @@ class State(
         frame.unload(layout)
     }
 
-    class Builder(private val parent: Switcher) {
+    class Builder(private val context: Context) {
         var key: String = ""
-        var layout: ViewGroup = FrameLayout(parent.getContext())
+        var layout: ViewGroup = FrameLayout(context)
         var frameType: FrameType = FrameType.LAYOUT
 
         fun build(): State {
             val frame = when (frameType) {
                 FrameType.LAYOUT -> BasicFrame()
-                FrameType.WINDOW -> DialogFrame(parent)
+                FrameType.WINDOW -> DialogFrame(context)
             }
 
             return State(

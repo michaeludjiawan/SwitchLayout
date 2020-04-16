@@ -1,24 +1,26 @@
 package com.michaeludjiawan.switchlayout.switcher
 
+import android.content.Context
 import com.michaeludjiawan.switchlayout.frame.FrameType
 import com.michaeludjiawan.switchlayout.layout.DefaultInfoLayout
 import com.michaeludjiawan.switchlayout.layout.DefaultLoadingItem
 
-fun Switcher.state(builderAction: State.Builder.() -> Unit): State =
-    State.Builder(this).apply(builderAction).build()
+fun state(context: Context, builderAction: State.Builder.() -> Unit): State =
+    State.Builder(context).apply(builderAction).build()
 
-fun Switcher.loadingState(builderAction: (State.Builder.() -> Unit) = {}): State = state {
-    key = STATE_LOADING
-    layout = DefaultLoadingItem(getContext())
+fun loadingState(context: Context, builderAction: (State.Builder.() -> Unit) = {}): State = state(context) {
+    key = StateConstants.STATE_LOADING
+    layout = DefaultLoadingItem(context)
     builderAction()
 }
 
-fun Switcher.loadingFullScreenState(builderAction: (State.Builder.() -> Unit) = {}) = loadingState {
+fun loadingFullScreenState(context: Context, builderAction: (State.Builder.() -> Unit) = {}) = loadingState(context) {
+    key = StateConstants.STATE_LOADING_FULL
     frameType = FrameType.WINDOW
     builderAction()
 }
 
-fun Switcher.infoState(builderAction: State.Builder.() -> Unit = {}): State = state {
-    layout = DefaultInfoLayout(getContext())
+fun infoState(context: Context, builderAction: State.Builder.() -> Unit = {}): State = state(context) {
+    layout = DefaultInfoLayout(context)
     builderAction()
 }
