@@ -1,4 +1,4 @@
-package com.michaeludjiawan.switchlayout.switcher
+package com.michaeludjiawan.switchlayout.state
 
 object StateConstants {
     const val STATE_CONTENT = "state_content"

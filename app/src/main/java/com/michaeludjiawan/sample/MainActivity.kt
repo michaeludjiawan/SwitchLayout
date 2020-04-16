@@ -5,7 +5,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.michaeludjiawan.switchlayout.frame.FrameType
 import com.michaeludjiawan.switchlayout.layout.infoLayout
-import com.michaeludjiawan.switchlayout.switcher.*
+import com.michaeludjiawan.switchlayout.state.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -59,10 +59,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initStates() {
         switch_main
-            .addState(loadingState(this))
-            .addState(loadingFullScreenState(this))
-            .addState(
-                infoState(this) {
+            .addState { loadingState() }
+            .addState { loadingFullScreenState() }
+            .addState {
+                infoState {
                     key = stateErrorKey
                     layout = infoLayout(this@MainActivity) {
                         imageResId = R.drawable.ic_error_black_24dp
@@ -72,9 +72,9 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            )
-            .addState(
-                infoState(this) {
+            }
+            .addState {
+                infoState {
                     key = stateEmptyKey
                     layout = infoLayout(this@MainActivity) {
                         imageResId = R.drawable.ic_warning_black_24dp
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            )
+            }
             .addState {
                 key = stateCustomKey
                 layout = CustomLayout(this@MainActivity).apply {

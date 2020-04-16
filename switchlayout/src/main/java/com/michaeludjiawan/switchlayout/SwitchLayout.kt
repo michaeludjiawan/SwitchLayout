@@ -8,10 +8,9 @@ import android.widget.FrameLayout
 import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.michaeludjiawan.switchlayout.switcher.LoadType
-import com.michaeludjiawan.switchlayout.switcher.State
-import com.michaeludjiawan.switchlayout.switcher.StateConstants
-import com.michaeludjiawan.switchlayout.switcher.Switcher
+import com.michaeludjiawan.switchlayout.state.LoadType
+import com.michaeludjiawan.switchlayout.state.State
+import com.michaeludjiawan.switchlayout.state.StateConstants
 
 class SwitchLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
