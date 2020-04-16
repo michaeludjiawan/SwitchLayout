@@ -39,4 +39,9 @@ class DefaultDialogFragment(private val loaderView: View) : DialogFragment() {
         loaderView.visibility = View.VISIBLE
         fl_dialog_over_frame.addView(loaderView)
     }
+
+    override fun dismiss() {
+        super.dismiss()
+        fl_dialog_over_frame.removeView(loaderView)
+    }
 }

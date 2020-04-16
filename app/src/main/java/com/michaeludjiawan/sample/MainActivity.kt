@@ -10,45 +10,60 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val stateErrorKey = "state_error"
+    private val stateEmptyKey = "state_empty"
+    private val stateCustomKey = "state_custom"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initStates()
+
         btn_loading_full_screen.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch {
-                    loadingFullScreenState()
-                }
+                switch_main.switch(StateConstants.STATE_LOADING_FULL)
             }
         }
 
         btn_loading_full_screen_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch(LoadType.ADD) {
-                    loadingFullScreenState()
-                }
+                switch_main.switch(StateConstants.STATE_LOADING_FULL, LoadType.ADD)
             }
         }
 
         btn_loading_in_frame.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch {
-                    loadingState()
-                }
+                switch_main.switch(StateConstants.STATE_LOADING)
             }
         }
 
         btn_loading_in_frame_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch(LoadType.ADD) {
-                    loadingState()
-                }
+                switch_main.switch(StateConstants.STATE_LOADING, LoadType.ADD)
             }
         }
 
         btn_error.setOnClickListener {
-            switch_main.switch {
-                infoState {
+            switch_main.switch(stateErrorKey)
+        }
+
+        btn_empty.setOnClickListener {
+            switch_main.switch(stateEmptyKey)
+        }
+
+        btn_custom.setOnClickListener {
+            switch_main.switch(stateCustomKey)
+        }
+    }
+
+    private fun initStates() {
+        switch_main
+            .addState(loadingState(this))
+            .addState(loadingFullScreenState(this))
+            .addState(
+                infoState(this) {
+                    key = stateErrorKey
                     layout = infoLayout(this@MainActivity) {
                         imageResId = R.drawable.ic_error_black_24dp
                         message = "Error Page!"
@@ -57,12 +72,10 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }
-        }
-
-        btn_empty.setOnClickListener {
-            switch_main.switch {
-                infoState {
+            )
+            .addState(
+                infoState(this) {
+                    key = stateEmptyKey
                     layout = infoLayout(this@MainActivity) {
                         imageResId = R.drawable.ic_warning_black_24dp
                         message = "Empty Page!"
@@ -71,20 +84,15 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }
-        }
-
-        btn_custom.setOnClickListener {
-            switch_main.switch {
-                state {
-                    key = "CUSTOM_STATE"
-                    layout = CustomLayout(this@MainActivity).apply {
-                        onBtnClickListener = { switch_main.clear() }
-                    }
-                    frameType = FrameType.WINDOW
+            )
+            .addState {
+                key = stateCustomKey
+                layout = CustomLayout(this@MainActivity).apply {
+                    onBtnClickListener = { switch_main.clear() }
                 }
+                frameType = FrameType.WINDOW
             }
-        }
+
     }
 
     private fun loadWithResetDelayed(action: () -> Unit) {
