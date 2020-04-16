@@ -1,4 +1,4 @@
-package com.michaeludjiawan.switchlayout.switcher
+package com.michaeludjiawan.switchlayout.state
 
 import android.content.Context
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ class State(
         frame.unload(layout)
     }
 
-    class Builder(private val context: Context) {
+    class Builder(val context: Context) {
         var key: String = ""
         var layout: ViewGroup = FrameLayout(context)
         var frameType: FrameType = FrameType.LAYOUT

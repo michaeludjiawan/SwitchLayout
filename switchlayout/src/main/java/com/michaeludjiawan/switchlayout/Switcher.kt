@@ -1,4 +1,4 @@
-package com.michaeludjiawan.switchlayout.switcher
+package com.michaeludjiawan.switchlayout
 
 import android.content.Context
 import android.view.View
