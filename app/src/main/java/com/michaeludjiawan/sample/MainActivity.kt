@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.michaeludjiawan.switchlayout.frame.FrameType
-import com.michaeludjiawan.switchlayout.layout.infoLayout
 import com.michaeludjiawan.switchlayout.state.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -45,11 +44,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_error.setOnClickListener {
-            switch_main.switch(stateErrorKey)
+            switch_main.switch(StateConstants.STATE_ERROR)
         }
 
         btn_empty.setOnClickListener {
-            switch_main.switch(stateEmptyKey)
+            switch_main.switch(StateConstants.STATE_EMPTY)
         }
 
         btn_custom.setOnClickListener {
@@ -62,26 +61,20 @@ class MainActivity : AppCompatActivity() {
             state { loadingState() }
             state { loadingFullScreenState() }
             state {
-                infoState {
-                    key = stateErrorKey
-                    layout = infoLayout(this@MainActivity) {
-                        imageResId = R.drawable.ic_error_black_24dp
-                        message = "Error Page!"
-                        onActionClickListener("Go back") {
-                            switch_main.clear()
-                        }
+                errorLayout {
+                    setImage(R.drawable.ic_error_black_24dp)
+                    setMessage("Error Page!")
+                    setAction("Go back") {
+                        switch_main.clear()
                     }
                 }
             }
             state {
-                infoState {
-                    key = stateEmptyKey
-                    layout = infoLayout(this@MainActivity) {
-                        imageResId = R.drawable.ic_warning_black_24dp
-                        message = "Empty Page!"
-                        onActionClickListener("Go back") {
-                            switch_main.clear()
-                        }
+                emptyLayout {
+                    setImage(R.drawable.ic_warning_black_24dp)
+                    setMessage("Empty Page!")
+                    setAction("Go back") {
+                        switch_main.clear()
                     }
                 }
             }
