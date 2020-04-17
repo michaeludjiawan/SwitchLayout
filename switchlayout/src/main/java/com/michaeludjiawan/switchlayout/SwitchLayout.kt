@@ -19,7 +19,7 @@ class SwitchLayout @JvmOverloads constructor(
     private val mutableState = MutableLiveData<State?>()
     val stateLiveData: LiveData<State?> = mutableState
 
-    private val states = mutableListOf<State>()
+    private val states = HashMap<String, State>()
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -33,7 +33,7 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun switch(key: String, loadType: LoadType = LoadType.REPLACE) {
-        val selectedState = states.find { it.key == key }
+        val selectedState = states[key]
 
         check(selectedState != null)
 
@@ -65,14 +65,14 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun addState(state: State) {
-        states.add(state)
+        states[state.key] = state
     }
 
     fun addStates(builderAction: StatesBuilder.() -> Unit) {
         addStates(StatesBuilder(context).apply(builderAction).build())
     }
 
-    fun addStates(states: List<State>) {
-        this.states.addAll(states)
+    fun addStates(states: HashMap<String, State>) {
+        this.states.putAll(states)
     }
 }

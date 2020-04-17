@@ -48,11 +48,12 @@ class State(
 
 @StateDslMarker
 class StatesBuilder(val context: Context) {
-    private val states = mutableListOf<State>()
+    private val states = HashMap<String, State>()
 
     fun state(builderAction: State.Builder.() -> Unit) {
-        states.add(State.Builder(context).apply(builderAction).build())
+        val state = State.Builder(context).apply(builderAction).build()
+        states[state.key] = state
     }
 
-    fun build(): List<State> = states
+    fun build() = states
 }
