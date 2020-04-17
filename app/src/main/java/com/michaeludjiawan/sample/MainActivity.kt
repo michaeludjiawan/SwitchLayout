@@ -58,10 +58,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initStates() {
-        switch_main
-            .addState { loadingState() }
-            .addState { loadingFullScreenState() }
-            .addState {
+        switch_main.addStates {
+            state { loadingState() }
+            state { loadingFullScreenState() }
+            state {
                 infoState {
                     key = stateErrorKey
                     layout = infoLayout(this@MainActivity) {
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            .addState {
+            state {
                 infoState {
                     key = stateEmptyKey
                     layout = infoLayout(this@MainActivity) {
@@ -85,14 +85,14 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            .addState {
+            state {
                 key = stateCustomKey
                 layout = CustomLayout(this@MainActivity).apply {
                     onBtnClickListener = { switch_main.clear() }
                 }
                 frameType = FrameType.WINDOW
             }
-
+        }
     }
 
     private fun loadWithResetDelayed(action: () -> Unit) {
