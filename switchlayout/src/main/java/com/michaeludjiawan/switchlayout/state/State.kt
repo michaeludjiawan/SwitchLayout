@@ -8,6 +8,9 @@ import com.michaeludjiawan.switchlayout.frame.DialogFrame
 import com.michaeludjiawan.switchlayout.frame.Frame
 import com.michaeludjiawan.switchlayout.frame.FrameType
 
+@DslMarker
+annotation class StateDslMarker
+
 class State(
     val key: String,
     val frame: Frame,
@@ -22,6 +25,7 @@ class State(
         frame.unload(layout)
     }
 
+    @StateDslMarker
     class Builder(val context: Context) {
         var key: String = ""
         var layout: ViewGroup = FrameLayout(context)
@@ -40,4 +44,15 @@ class State(
             )
         }
     }
+}
+
+@StateDslMarker
+class StatesBuilder(val context: Context) {
+    private val states = mutableListOf<State>()
+
+    fun state(builderAction: State.Builder.() -> Unit) {
+        states.add(State.Builder(context).apply(builderAction).build())
+    }
+
+    fun build(): List<State> = states
 }

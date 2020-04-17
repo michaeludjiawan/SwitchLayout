@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.michaeludjiawan.switchlayout.state.LoadType
 import com.michaeludjiawan.switchlayout.state.State
 import com.michaeludjiawan.switchlayout.state.StateConstants
+import com.michaeludjiawan.switchlayout.state.StatesBuilder
 
 class SwitchLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -61,15 +62,20 @@ class SwitchLayout @JvmOverloads constructor(
 
     override fun getChildren(): Sequence<View> = children
 
-    fun addState(builderAction: State.Builder.() -> Unit): SwitchLayout {
+    fun addState(builderAction: State.Builder.() -> Unit) {
         val state = State.Builder(context).apply(builderAction).build()
-        states.add(state)
-        return this
+        addState(state)
     }
 
-    fun addState(state: State): SwitchLayout {
+    fun addState(state: State) {
         states.add(state)
-        return this
     }
 
+    fun addStates(builderAction: StatesBuilder.() -> Unit) {
+        addStates(StatesBuilder(context).apply(builderAction).build())
+    }
+
+    fun addStates(states: List<State>) {
+        this.states.addAll(states)
+    }
 }
