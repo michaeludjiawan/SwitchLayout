@@ -20,7 +20,16 @@ fun State.Builder.loadingFullScreenState(builderAction: (State.Builder.() -> Uni
     builderAction()
 }
 
-fun State.Builder.infoState(builderAction: State.Builder.() -> Unit = {}) {
+fun State.Builder.infoState(infoLayoutAction: DefaultInfoLayout.() -> Unit = {}) {
     layout = DefaultInfoLayout(context)
-    builderAction()
+}
+
+fun State.Builder.errorLayout(errorLayoutAction: DefaultInfoLayout.() -> Unit) {
+    key = StateConstants.STATE_ERROR
+    layout = DefaultInfoLayout(context).apply(errorLayoutAction)
+}
+
+fun State.Builder.emptyLayout(emptyLayoutAction: DefaultInfoLayout.() -> Unit) {
+    key = StateConstants.STATE_EMPTY
+    layout = DefaultInfoLayout(context).apply(emptyLayoutAction)
 }

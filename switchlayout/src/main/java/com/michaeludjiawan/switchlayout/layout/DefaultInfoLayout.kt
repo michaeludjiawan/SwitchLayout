@@ -5,11 +5,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.michaeludjiawan.switchlayout.R
+import com.michaeludjiawan.switchlayout.state.StateDslMarker
 import kotlinx.android.synthetic.main.layout_info_default.view.*
 
-fun infoLayout(context: Context, init: DefaultInfoLayout.Builder.() -> Unit) =
-    DefaultInfoLayout.Builder(context).apply(init).build()
-
+@StateDslMarker
 class DefaultInfoLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
@@ -53,23 +52,4 @@ class DefaultInfoLayout @JvmOverloads constructor(
 
     }
 
-    class Builder(private val context: Context) {
-        var imageResId: Int = 0
-        var message: String = ""
-        private var btnActionLabel: String = ""
-        private var onActionClickListener: () -> Unit = {}
-
-        fun onActionClickListener(label: String, onActionClickListener: () -> Unit) {
-            this.btnActionLabel = label
-            this.onActionClickListener = onActionClickListener
-        }
-
-        fun build(): DefaultInfoLayout = DefaultInfoLayout(
-            context
-        ).apply {
-            setImage(imageResId)
-            setMessage(message)
-            setAction(btnActionLabel, onActionClickListener)
-        }
-    }
 }
