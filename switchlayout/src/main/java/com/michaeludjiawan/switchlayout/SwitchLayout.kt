@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.michaeludjiawan.switchlayout.state.LoadType
@@ -15,7 +14,7 @@ import com.michaeludjiawan.switchlayout.state.StatesBuilder
 
 class SwitchLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), Switcher {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val mutableState = MutableLiveData<State?>()
     val stateLiveData: LiveData<State?> = mutableState
@@ -59,8 +58,6 @@ class SwitchLayout @JvmOverloads constructor(
     fun clear() {
         switch(StateConstants.STATE_CONTENT)
     }
-
-    override fun getChildren(): Sequence<View> = children
 
     fun addState(builderAction: State.Builder.() -> Unit) {
         val state = State.Builder(context).apply(builderAction).build()
