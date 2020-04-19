@@ -9,8 +9,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val stateErrorKey = "state_error"
-    private val stateEmptyKey = "state_empty"
     private val stateCustomKey = "state_custom"
 
     override fun onCreate(savedInstanceState: Bundle?) {
