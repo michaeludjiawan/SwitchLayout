@@ -55,7 +55,7 @@ class SwitchLayout @JvmOverloads constructor(
         mutableState.value = selectedState
     }
 
-    fun clear() {
+    fun switchToContent() {
         switch(StateConstants.STATE_CONTENT)
     }
 

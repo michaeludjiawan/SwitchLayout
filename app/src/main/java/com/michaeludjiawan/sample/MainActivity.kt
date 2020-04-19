@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     setImage(R.drawable.ic_error_black_24dp)
                     setMessage("Error Page!")
                     setAction("Go back") {
-                        switch_main.clear()
+                        switch_main.switchToContent()
                     }
                 }
             }
@@ -74,14 +74,14 @@ class MainActivity : AppCompatActivity() {
                     setImage(R.drawable.ic_warning_black_24dp)
                     setMessage("Empty Page!")
                     setAction("Go back") {
-                        switch_main.clear()
+                        switch_main.switchToContent()
                     }
                 }
             }
             state {
                 key = stateCustomKey
                 layout = CustomLayout(this@MainActivity).apply {
-                    onBtnClickListener = { switch_main.clear() }
+                    onBtnClickListener = { switch_main.switchToContent() }
                 }
                 frameType = FrameType.WINDOW
             }
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetOnDelay() {
         Handler().postDelayed({
-            switch_main.clear()
+            switch_main.switchToContent()
         }, 2000)
     }
 }
