@@ -4,11 +4,11 @@ A layout which allow you to handle different states in a flexible way
 
 # Download
 
-```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.1.0'```
+```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.2.0'```
 
 # Usage
 
-First, wrap your content layout with `SwitchLayout`
+Wrap your content layout with `SwitchLayout`
 
 ```
 <com.michaeludjiawan.switchlayout.SwitchLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,67 +26,50 @@ First, wrap your content layout with `SwitchLayout`
 </com.michaeludjiawan.switchlayout.SwitchLayout>
 ```
 
-Then easily switch state to provided common states or your customized state
+Define your states
 
 ```
-// Switch to in-frame loading state
-switch_layout.switch { loadingState() }
-
-// Switch to window loading state
-switch_layout.switch { loadingFullScreenState() }
-
-// Switch to empty/error
-switch_layout.switch { 
-  infoState() {
-    layout = infoLayout(this@MainActivity) {
-      imageResId = R.drawable.ic_error_black_24dp
-      message = "Error Page!"
-      onActionClickListener("Go back") {
-        switch_main.clear()
-      }
-    }
-  }
-}
-
-// Switch back to content state
-switch_layout.clear()
-```
-
-Implementation of common states
-
-```
-// SwitcherDsl.kt
-
-fun Switcher.loadingState(builderAction: (State.Builder.() -> Unit) = {}): State = state {
-    key = STATE_LOADING
-    layout = DefaultLoadingItem(getContext())
-    builderAction()
-}
-
-fun Switcher.loadingFullScreenState(builderAction: (State.Builder.() -> Unit) = {}) = loadingState {
-    frame {
+switch_layout.addStates {
+    state {
+        key = stateCustomKey
+        layout = CustomLayout()
         frameType = FrameType.WINDOW
     }
-    builderAction()
-}
-
-fun Switcher.infoState(builderAction: State.Builder.() -> Unit = {}): State = state {
-    layout = DefaultInfoLayout(getContext())
-    builderAction()
+    // or use predefined common states
+    state { loadingState }
+    state { loadingFullScreenState() }
+    state {
+         errorLayout {
+            setImage(R.drawable.ic_error)
+            setMessage("Error Page")
+            setAction("Action") {
+                switch_main.switchToContent()
+            }
+        }
+    }
+    state {
+        emptyLayout {
+            setImage(R.drawable.ic_empty)
+            setMessage("Empty Page")
+            setAction("Action") {
+                switch_main.switchToContent()
+            }
+        }
+    }
 }
 ```
 
-Or create a fully customized state according to your need
+Switch between states
 
 ```
-switch_main.switch {
-  state {
-    key = "CUSTOM_STATE"
-    layout = YourCustomLayout()
-    frame {
-      frameType = FrameType.WINDOW
-    }
-    existingStateVisibility = View.GONE
-    }
-}
+switch_main.switch("custom state key")
+
+// switch to predefined states
+switch_main.switch(StateConstants.STATE_LOADING)
+switch_main.switch(StateConstants.STATE_LOADING_FULL, LoadType.ADD)
+switch_main.switch(StateConstants.STATE_ERROR)
+switch_main.switch(StateConstants.STATE_EMPTY)
+
+// convenience method to switch back to content state
+switch_main.switchToContent()
 ```
