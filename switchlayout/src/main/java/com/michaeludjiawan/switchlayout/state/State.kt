@@ -13,17 +13,9 @@ annotation class StateDslMarker
 
 class State(
     val key: String,
-    val frame: Frame,
-    val layout: ViewGroup
+    val layout: ViewGroup,
+    val frame: Frame
 ) {
-
-    fun load() {
-        frame.load(layout)
-    }
-
-    fun finish() {
-        frame.unload(layout)
-    }
 
     @StateDslMarker
     class Builder(val context: Context) {
@@ -39,21 +31,9 @@ class State(
 
             return State(
                 key,
-                frame,
-                layout
+                layout,
+                frame
             )
         }
     }
-}
-
-@StateDslMarker
-class StatesBuilder(val context: Context) {
-    private val states = HashMap<String, State>()
-
-    fun state(builderAction: State.Builder.() -> Unit) {
-        val state = State.Builder(context).apply(builderAction).build()
-        states[state.key] = state
-    }
-
-    fun build() = states
 }

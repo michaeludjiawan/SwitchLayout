@@ -2,15 +2,11 @@ package com.michaeludjiawan.switchlayout
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.michaeludjiawan.switchlayout.state.LoadType
-import com.michaeludjiawan.switchlayout.state.State
-import com.michaeludjiawan.switchlayout.state.StateConstants
-import com.michaeludjiawan.switchlayout.state.StatesBuilder
+import com.michaeludjiawan.switchlayout.state.*
 
 class SwitchLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -19,60 +15,38 @@ class SwitchLayout @JvmOverloads constructor(
     private val mutableState = MutableLiveData<State?>()
     val stateLiveData: LiveData<State?> = mutableState
 
-    private val states = HashMap<String, State>()
+    private lateinit var contentState: State
+
+    private val stateLoader: StateLoader = StateLoader(this)
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         val contentLayout = getChildAt(0) as ViewGroup
-        addState {
+        contentLayout.tag = StateConstants.STATE_CONTENT
+
+        contentState = state(context) {
             key = StateConstants.STATE_CONTENT
             layout = contentLayout
         }
-
-        switch(StateConstants.STATE_CONTENT)
+        switchToContent()
     }
 
-    fun switch(key: String, loadType: LoadType = LoadType.REPLACE) {
-        val selectedState = states[key]
+    fun switch(loadType: LoadType = LoadType.REPLACE, init: State.Builder.() -> Unit) {
+        val state = State.Builder(context).apply(init).build()
+        switch(loadType, state)
+    }
 
-        check(selectedState != null)
-
-        if (selectedState.layout.parent == null) {
-            selectedState.layout.visibility = View.GONE
-            addView(selectedState.layout)
-        }
-
-        check(selectedState.layout.parent == this) {
-            "New layout not attached to current layout."
-        }
-
+    fun switch(loadType: LoadType = LoadType.REPLACE, state: State) {
         if (loadType == LoadType.REPLACE) {
-            mutableState.value?.finish()
+            stateLoader.unload(mutableState.value)
         }
 
-        selectedState.load()
-
-        mutableState.value = selectedState
+        stateLoader.load(state)
+        mutableState.value = state
     }
 
     fun switchToContent() {
-        switch(StateConstants.STATE_CONTENT)
+        switch(state = contentState)
     }
 
-    fun addState(builderAction: State.Builder.() -> Unit) {
-        val state = State.Builder(context).apply(builderAction).build()
-        addState(state)
-    }
-
-    fun addState(state: State) {
-        states[state.key] = state
-    }
-
-    fun addStates(builderAction: StatesBuilder.() -> Unit) {
-        addStates(StatesBuilder(context).apply(builderAction).build())
-    }
-
-    fun addStates(states: HashMap<String, State>) {
-        this.states.putAll(states)
-    }
 }
