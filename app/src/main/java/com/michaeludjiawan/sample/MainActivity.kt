@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.michaeludjiawan.switchlayout.frame.FrameType
-import com.michaeludjiawan.switchlayout.state.*
+import com.michaeludjiawan.switchlayout.state.emptyState
+import com.michaeludjiawan.switchlayout.state.errorState
+import com.michaeludjiawan.switchlayout.state.loadingFullScreenState
+import com.michaeludjiawan.switchlayout.state.loadingState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,13 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         btn_loading_full_screen.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch { loadingFullScreenState() }
+                switch_main.replace { loadingFullScreenState() }
             }
         }
 
         btn_loading_full_screen_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch(LoadType.ADD) {
+                switch_main.add {
                     loadingFullScreenState()
                 }
             }
@@ -31,20 +34,20 @@ class MainActivity : AppCompatActivity() {
 
         btn_loading_in_frame.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch { loadingState() }
+                switch_main.replace { loadingState() }
             }
         }
 
         btn_loading_in_frame_keep.setOnClickListener {
             loadWithResetDelayed {
-                switch_main.switch(LoadType.ADD) {
+                switch_main.add {
                     loadingState()
                 }
             }
         }
 
         btn_error.setOnClickListener {
-            switch_main.switch {
+            switch_main.replace {
                 errorState {
                     setImage(R.drawable.ic_error_black_24dp)
                     setMessage("Error Page!")
@@ -56,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_empty.setOnClickListener {
-            switch_main.switch {
+            switch_main.replace {
                 emptyState {
                     setImage(R.drawable.ic_warning_black_24dp)
                     setMessage("Empty Page!")
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_custom.setOnClickListener {
-            switch_main.switch {
+            switch_main.replace {
                 key = stateCustomKey
                 layout = CustomLayout(this@MainActivity).apply {
                     onBtnClickListener = { switch_main.switchToContent() }

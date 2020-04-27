@@ -31,9 +31,22 @@ class SwitchLayout @JvmOverloads constructor(
         switchToContent()
     }
 
-    fun switch(loadType: LoadType = LoadType.REPLACE, init: State.Builder.() -> Unit) {
+    fun replace(init: State.Builder.() -> Unit) {
         val state = State.Builder(context).apply(init).build()
-        switch(loadType, state)
+        replace(state)
+    }
+
+    fun replace(state: State) {
+        switch(LoadType.REPLACE, state)
+    }
+
+    fun add(init: State.Builder.() -> Unit) {
+        val state = State.Builder(context).apply(init).build()
+        add(state)
+    }
+
+    fun add(state: State) {
+        switch(LoadType.ADD, state)
     }
 
     fun switch(loadType: LoadType = LoadType.REPLACE, state: State) {
@@ -46,7 +59,7 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun switchToContent() {
-        switch(state = contentState)
+        replace(contentState)
     }
 
 }
