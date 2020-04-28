@@ -4,11 +4,11 @@ A layout which allow you to handle different states in a flexible way
 
 # Download
 
-```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.2.0'```
+```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.3.0'```
 
 # Usage
 
-Wrap your content layout with `SwitchLayout`
+**Add in XML**
 
 ```
 <com.michaeludjiawan.switchlayout.SwitchLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,50 +26,43 @@ Wrap your content layout with `SwitchLayout`
 </com.michaeludjiawan.switchlayout.SwitchLayout>
 ```
 
-Define your states
+**Switch between state**
+
+- Use ```add()``` or ```replace()``` to switch state with or without removing existing state.
+- Use predefined state or create your own state.
+- Switch back to content state using ```switchToContent()```
 
 ```
-switch_layout.addStates {
-    state {
-        key = stateCustomKey
-        layout = CustomLayout()
-        frameType = FrameType.WINDOW
-    }
-    // or use predefined common states
-    state { loadingState }
-    state { loadingFullScreenState() }
-    state {
-         errorLayout {
-            setImage(R.drawable.ic_error)
-            setMessage("Error Page")
-            setAction("Action") {
-                switch_main.switchToContent()
-            }
-        }
-    }
-    state {
-        emptyLayout {
-            setImage(R.drawable.ic_empty)
-            setMessage("Empty Page")
-            setAction("Action") {
-                switch_main.switchToContent()
-            }
-        }
-    }
+switch_layout.add { loadingState() }
+switch_layout.replace { // this: State.Builder
+    key = "custom_key"
+    layout = CustomLayout()
+    loaderType = LoaderType.DEFAULT // or WINDOW, PERSISTENT
 }
 ```
 
-Switch between states
+**Predefined State**
+
+- ```loadingState()```. Show progress dialog.
+- ```loadingFullState()```. Show progress dialog in a window dialog.
+- ```emptyState()``` and ```errorState()```. Show default layout with customizable image, message, and button.
+
+**Custom State**
 
 ```
-switch_main.switch("custom state key")
+switch.replace {
+    key = "custom_key"
+    layout = CustomLayout()
+    loaderType = LoaderType.DEFAULT
+}
 
-// switch to predefined states
-switch_main.switch(StateConstants.STATE_LOADING)
-switch_main.switch(StateConstants.STATE_LOADING_FULL, LoadType.ADD)
-switch_main.switch(StateConstants.STATE_ERROR)
-switch_main.switch(StateConstants.STATE_EMPTY)
+or
 
-// convenience method to switch back to content state
-switch_main.switchToContent()
+val customState = state(switch_layout) {
+    key = "custom_key"
+    layout = CustomLayout()
+    loaderType = LoaderType.DEFAULT
+}
+
+switch_layout.replace(customState)
 ```

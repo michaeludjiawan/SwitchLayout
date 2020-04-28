@@ -5,7 +5,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
-    libraryVersion = '0.2.0'
+    libraryVersion = '0.3.0'
 
     bintrayRepo = 'SwitchLayout'
     bintrayName = 'switchlayout'
