@@ -1,5 +1,5 @@
 package com.michaeludjiawan.switchlayout.state
 
-enum class LoadType {
+enum class SwitchType {
     ADD, REPLACE
 }

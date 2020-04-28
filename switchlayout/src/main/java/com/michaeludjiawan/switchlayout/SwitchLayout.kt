@@ -7,9 +7,9 @@ import android.widget.FrameLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.michaeludjiawan.switchlayout.loader.LoaderType
-import com.michaeludjiawan.switchlayout.state.LoadType
 import com.michaeludjiawan.switchlayout.state.State
 import com.michaeludjiawan.switchlayout.state.StateConstants
+import com.michaeludjiawan.switchlayout.state.SwitchType
 import com.michaeludjiawan.switchlayout.state.state
 
 class SwitchLayout @JvmOverloads constructor(
@@ -40,7 +40,7 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun replace(state: State) {
-        switch(LoadType.REPLACE, state)
+        switch(SwitchType.REPLACE, state)
     }
 
     fun add(init: State.Builder.() -> Unit) {
@@ -49,11 +49,11 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun add(state: State) {
-        switch(LoadType.ADD, state)
+        switch(SwitchType.ADD, state)
     }
 
-    fun switch(loadType: LoadType = LoadType.REPLACE, state: State) {
-        if (loadType == LoadType.REPLACE) {
+    fun switch(switchType: SwitchType = SwitchType.REPLACE, state: State) {
+        if (switchType == SwitchType.REPLACE) {
             mutableState.value?.unload()
         }
 
