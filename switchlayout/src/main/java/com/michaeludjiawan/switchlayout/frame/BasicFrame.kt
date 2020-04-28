@@ -3,20 +3,24 @@ package com.michaeludjiawan.switchlayout.frame
 import android.view.View
 import android.view.ViewGroup
 
-class BasicFrame : Frame {
+class BasicFrame(private val parent: ViewGroup) : Frame {
 
     override fun load(itemView: ViewGroup) {
-        requireNotNull(itemView.parent) {
-            "Child parent must not be null."
+        when {
+            itemView.parent == null -> {
+                parent.addView(itemView)
+            }
+            itemView.parent != parent -> {
+                (itemView.parent as ViewGroup).removeView(itemView)
+                parent.addView(itemView)
+            }
         }
 
         itemView.visibility = View.VISIBLE
     }
 
     override fun unload(itemView: ViewGroup) {
-        requireNotNull(itemView.parent) {
-            "Child parent must not be null."
-        }
+        parent.removeView(itemView)
 
         itemView.visibility = View.GONE
     }
