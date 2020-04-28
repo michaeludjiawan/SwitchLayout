@@ -1,4 +1,4 @@
-package com.michaeludjiawan.switchlayout.frame
+package com.michaeludjiawan.switchlayout.loader
 
 import android.content.Context
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.michaeludjiawan.switchlayout.layout.DefaultDialogFragment
 
-class DialogFrame(context: Context) : Frame {
+class DialogLoader(context: Context) : Loader {
 
     private val fragmentManager: FragmentManager = (context as AppCompatActivity).supportFragmentManager
     private var dialog: DialogFragment? = null

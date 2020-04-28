@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.michaeludjiawan.switchlayout.frame.FrameType
+import com.michaeludjiawan.switchlayout.loader.LoaderType
 import com.michaeludjiawan.switchlayout.state.LoadType
 import com.michaeludjiawan.switchlayout.state.State
 import com.michaeludjiawan.switchlayout.state.StateConstants
@@ -29,7 +29,7 @@ class SwitchLayout @JvmOverloads constructor(
         contentState = state(this) {
             key = StateConstants.STATE_CONTENT
             layout = contentLayout
-            frameType = FrameType.PERSISTENT
+            loaderType = LoaderType.PERSISTENT
         }
         switchToContent()
     }

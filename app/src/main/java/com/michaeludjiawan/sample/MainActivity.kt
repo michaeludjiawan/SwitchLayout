@@ -3,7 +3,7 @@ package com.michaeludjiawan.sample
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.michaeludjiawan.switchlayout.frame.FrameType
+import com.michaeludjiawan.switchlayout.loader.LoaderType
 import com.michaeludjiawan.switchlayout.state.emptyState
 import com.michaeludjiawan.switchlayout.state.errorState
 import com.michaeludjiawan.switchlayout.state.loadingFullScreenState
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 layout = CustomLayout(this@MainActivity).apply {
                     onBtnClickListener = { switch_main.switchToContent() }
                 }
-                frameType = FrameType.WINDOW
+                loaderType = LoaderType.WINDOW
             }
         }
     }

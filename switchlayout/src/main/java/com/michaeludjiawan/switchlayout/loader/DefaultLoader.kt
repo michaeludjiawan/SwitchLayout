@@ -1,9 +1,9 @@
-package com.michaeludjiawan.switchlayout.frame
+package com.michaeludjiawan.switchlayout.loader
 
 import android.view.View
 import android.view.ViewGroup
 
-class BasicFrame(private val parent: ViewGroup) : Frame {
+class DefaultLoader(private val parent: ViewGroup) : Loader {
 
     override fun load(itemView: ViewGroup) {
         when {
