@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_default_dialog.*
 
 class DefaultDialogFragment(private val loaderView: View) : DialogFragment() {
 
-    private val initialParent = loaderView.parent as ViewGroup
+    private val initialParent = loaderView.parent as? ViewGroup
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,15 +37,9 @@ class DefaultDialogFragment(private val loaderView: View) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initialParent.removeView(loaderView)
+        initialParent?.removeView(loaderView)
         fl_dialog_over_frame.addView(loaderView)
         loaderView.visibility = View.VISIBLE
     }
 
-    override fun dismiss() {
-        super.dismiss()
-        fl_dialog_over_frame.removeView(loaderView)
-        initialParent.addView(loaderView)
-        loaderView.visibility = View.GONE
-    }
 }

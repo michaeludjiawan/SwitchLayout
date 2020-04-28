@@ -1,12 +1,9 @@
 package com.michaeludjiawan.switchlayout.state
 
-import android.content.Context
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.michaeludjiawan.switchlayout.frame.BasicFrame
-import com.michaeludjiawan.switchlayout.frame.DialogFrame
-import com.michaeludjiawan.switchlayout.frame.Frame
-import com.michaeludjiawan.switchlayout.frame.FrameType
+import com.michaeludjiawan.switchlayout.SwitchLayout
+import com.michaeludjiawan.switchlayout.frame.*
 
 @DslMarker
 annotation class StateDslMarker
@@ -17,16 +14,25 @@ class State(
     val frame: Frame
 ) {
 
+    fun load() {
+        frame.load(layout)
+    }
+
+    fun unload() {
+        frame.unload(layout)
+    }
+
     @StateDslMarker
-    class Builder(val context: Context) {
+    class Builder(val parent: SwitchLayout) {
         var key: String = ""
-        var layout: ViewGroup = FrameLayout(context)
+        var layout: ViewGroup = FrameLayout(parent.context)
         var frameType: FrameType = FrameType.LAYOUT
 
         fun build(): State {
             val frame = when (frameType) {
-                FrameType.LAYOUT -> BasicFrame()
-                FrameType.WINDOW -> DialogFrame(context)
+                FrameType.LAYOUT -> BasicFrame(parent)
+                FrameType.WINDOW -> DialogFrame(parent.context)
+                FrameType.PERSISTENT -> PersistentFrame()
             }
 
             return State(

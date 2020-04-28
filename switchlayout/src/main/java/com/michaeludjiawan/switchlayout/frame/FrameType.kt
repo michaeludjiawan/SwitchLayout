@@ -1,3 +1,3 @@
 package com.michaeludjiawan.switchlayout.frame
 
-enum class FrameType { LAYOUT, WINDOW }
+enum class FrameType { LAYOUT, WINDOW, PERSISTENT }

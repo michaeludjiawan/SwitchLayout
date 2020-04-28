@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.michaeludjiawan.switchlayout.state.*
+import com.michaeludjiawan.switchlayout.frame.FrameType
+import com.michaeludjiawan.switchlayout.state.LoadType
+import com.michaeludjiawan.switchlayout.state.State
+import com.michaeludjiawan.switchlayout.state.StateConstants
+import com.michaeludjiawan.switchlayout.state.state
 
 class SwitchLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -17,22 +21,21 @@ class SwitchLayout @JvmOverloads constructor(
 
     private lateinit var contentState: State
 
-    private val stateLoader: StateLoader = StateLoader(this)
-
     override fun onFinishInflate() {
         super.onFinishInflate()
         val contentLayout = getChildAt(0) as ViewGroup
         contentLayout.tag = StateConstants.STATE_CONTENT
 
-        contentState = state(context) {
+        contentState = state(this) {
             key = StateConstants.STATE_CONTENT
             layout = contentLayout
+            frameType = FrameType.PERSISTENT
         }
         switchToContent()
     }
 
     fun replace(init: State.Builder.() -> Unit) {
-        val state = State.Builder(context).apply(init).build()
+        val state = state(this) { init() }
         replace(state)
     }
 
@@ -41,7 +44,7 @@ class SwitchLayout @JvmOverloads constructor(
     }
 
     fun add(init: State.Builder.() -> Unit) {
-        val state = State.Builder(context).apply(init).build()
+        val state = state(this) { init() }
         add(state)
     }
 
@@ -51,10 +54,10 @@ class SwitchLayout @JvmOverloads constructor(
 
     fun switch(loadType: LoadType = LoadType.REPLACE, state: State) {
         if (loadType == LoadType.REPLACE) {
-            stateLoader.unload(mutableState.value)
+            mutableState.value?.unload()
         }
 
-        stateLoader.load(state)
+        state.load()
         mutableState.value = state
     }
 
