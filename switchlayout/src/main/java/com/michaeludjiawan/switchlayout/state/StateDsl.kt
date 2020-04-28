@@ -1,9 +1,9 @@
 package com.michaeludjiawan.switchlayout.state
 
 import com.michaeludjiawan.switchlayout.SwitchLayout
-import com.michaeludjiawan.switchlayout.frame.FrameType
 import com.michaeludjiawan.switchlayout.layout.DefaultInfoLayout
 import com.michaeludjiawan.switchlayout.layout.DefaultLoadingItem
+import com.michaeludjiawan.switchlayout.loader.LoaderType
 
 fun state(parent: SwitchLayout, builderAction: State.Builder.() -> Unit): State =
     State.Builder(parent).apply(builderAction).build()
@@ -16,7 +16,7 @@ fun State.Builder.loadingState() {
 fun State.Builder.loadingFullScreenState() {
     key = StateConstants.STATE_LOADING_FULL
     layout = DefaultLoadingItem(parent.context)
-    frameType = FrameType.WINDOW
+    loaderType = LoaderType.WINDOW
 }
 
 fun State.Builder.errorState(errorLayoutAction: DefaultInfoLayout.() -> Unit = {}) {

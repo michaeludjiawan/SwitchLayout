@@ -1,8 +1,8 @@
-package com.michaeludjiawan.switchlayout.frame
+package com.michaeludjiawan.switchlayout.loader
 
 import android.view.ViewGroup
 
-interface Frame {
+interface Loader {
     fun load(itemView: ViewGroup)
     fun unload(itemView: ViewGroup)
 }

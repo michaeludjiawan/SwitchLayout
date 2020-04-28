@@ -1,9 +1,9 @@
-package com.michaeludjiawan.switchlayout.frame
+package com.michaeludjiawan.switchlayout.loader
 
 import android.view.View
 import android.view.ViewGroup
 
-class PersistentFrame : Frame {
+class PersistentLoader : Loader {
 
     override fun load(itemView: ViewGroup) {
         requireNotNull(itemView.parent) {
