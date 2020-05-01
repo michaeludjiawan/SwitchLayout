@@ -2,6 +2,8 @@
 
 A layout which allow you to handle different states in a flexible way
 
+![Demo](https://media.giphy.com/media/QZsIEBVO44VTopEt8s/giphy.gif)
+
 # Download
 
 ```implementation 'com.michaeludjiawan.switchlayout:switchlayout:0.3.0'```
